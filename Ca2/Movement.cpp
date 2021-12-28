@@ -14,7 +14,6 @@ void Movement::enemyMovement() {
 };
 
 void Movement::playerMovement() {
-	yPos -= 1;
 };
 
 float Movement::getXPosition() {
@@ -23,7 +22,6 @@ float Movement::getXPosition() {
 
 void Movement::gravity()
 {
-	yPos += 0.09;
 }
 
 float Movement::getYPosition() {
@@ -51,7 +49,6 @@ void Movement::moveLeft() {
 		return;
 	}
 	else {
-		xPos -=0.5;
 	}
 };
 void Movement::moveRight() {
@@ -59,6 +56,5 @@ void Movement::moveRight() {
 		return;
 	}
 	else {
-		xPos +=0.5;
 	}
 };

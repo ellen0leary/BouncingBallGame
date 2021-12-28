@@ -40,18 +40,40 @@ int main()
                 std::cout << "Key Pressed" << std::endl;
                 if (event.key.code == sf::Keyboard::Space) {
                     std::cout << "space Pressed" << std::endl;
-                    movementTime = 200;
                 }
+                //else if (event.key.code == sf::Keyboard::Left) {
+                //    //move left
+                //    player.move.moveLeft();
+                //}
+                //else if (event.key.code == sf::Keyboard::Right) {
+                //    //move right
+                //    player.move.moveRight();
+                //}
             }
         }
-        if ( sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         //move left
         player.move.moveLeft();
                 }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         //move right
         player.move.moveRight();
-        }
+                }
+     //   /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !spacePressed*/)
+        //if (event.type == sf::Event::KeyPressed) {
+        //    std::cout << "Key Pressed" << std::endl;
+        //    if (event.key.code == sf::Keyboard::Space) {
+        //        std::cout << "space Pressed" << std::endl;
+        //        spacePressed = true;
+        //        player.move.move();
+        //        circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
+        //        platform.move.gravity();
+        //        rect.setPosition(platform.move.getXPosition(), platform.move.getYPosition());
+        //    }
+        //}
+        //else {
+        //    spacePressed = false;
+        //    //player.move.gravity();
+        //    circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
+        //}
 
         if (movementTime > 0) {
             player.move.move();
