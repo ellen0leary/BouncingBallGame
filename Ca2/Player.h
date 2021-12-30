@@ -6,15 +6,16 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-class Player 
+class Player : public sf::Drawable
 {
 public:
 	Player();
 	Movement move;
 	Collider collide;
 	
-	sf::CircleShape circle;
+
 private:
-	
+	virtual void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const;
+	sf::CircleShape m_circle;
 };
 

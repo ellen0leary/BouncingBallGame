@@ -9,29 +9,29 @@
 //custom classes
 #include "Player.h"
 #include "Platform.h"
+#include "Enemy.h"
+
 int main()
 {
-	const int sreenWidth = 400;
+	const int screenWidth = 400;
 	const int screenHeight = 900;
 	const float platformHeight = 20;
-	sf::RenderWindow window(sf::VideoMode(sreenWidth, screenHeight), "Bouncing Ball");
+	sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Bouncing Ball");
 
 	//Player class and sprite
-	sf::CircleShape circle(20.0f);
-	circle.setFillColor(sf::Color::Color(206, 137, 100));
-	circle.setPosition(160, 800);
-
 	Player player;
 	player.move.setPos(160, 800);
 
 	////Platforms
-	/*Platform plateforms[5];
-	sf::RectangleShape rectangles[5];*/
 	std::vector<Platform> platforms;
-	std::vector<sf::RectangleShape> rectanges;
+
+	/*Platform plateforms[25];
+	sf::RectangleShape rectangles[25];*/
 
 	sf::RectangleShape rect(sf::Vector2f(60, platformHeight));
-	rect.setFillColor(sf::Color::Green);
+	rect.setFillColor(sf::Color::Color(11, 0, 51));
+	rect.setOutlineColor(sf::Color::White);
+	rect.setOutlineThickness(0.2);
 	rect.setPosition(100, 600);
 
 	Platform platform;
@@ -39,18 +39,32 @@ int main()
 	platforms.push_back(platform);
 
 
-	sf::RectangleShape rect1(sf::Vector2f(60, platformHeight));
-	rect1.setFillColor(sf::Color::Color(155, 126, 70));
-	rect1.setPosition(300, 700);
-
-	Platform platform1;
-	platform1.move.setPos(400, 700);
-
-
+	//enemy
+	Enemy enemy;
 	//values
 	bool spacePressed = false;
 	int movementTime = 0;
 	int difficulty = 5;
+	bool changedThisFrame = false;
+	//while (platforms.size() <= 5) {
+	//	//add new vector
+	//	Platform newPlat;
+	//	//randomise x value 
+	//	float randomX = rand() % screenHeight + 1;
+	//	float randomY = rand() % screenWidth + 30;
+	//	//std::cout << (randomX);
+	//	newPlat.move.setPos(randomX, randomY);
+	//	//randomise length
+	//	float randomLength = rand() % 50 + 21;
+
+
+	//	sf::RectangleShape newRect(sf::Vector2f(randomLength, platformHeight));
+	//	newRect.setFillColor(sf::Color::Green);
+	//	newRect.setPosition(randomX, randomY);
+	//	//add to vectors
+	//	platforms.push_back(newPlat);
+	//	rectanges.push_back(newRect);
+	//}
 
 	srand(time(0));
 
@@ -74,7 +88,7 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			//move left
 			player.move.moveLeft();
-			for (auto plate: platforms) {
+			for (auto plate : platforms) {
 				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
 					player.move.moveRight();
 					player.move.moveRight();
@@ -85,7 +99,7 @@ int main()
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			//move right
 			player.move.moveRight();
-			for (auto plate: platforms){
+			for (auto plate : platforms) {
 				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
 					player.move.moveLeft();
 					player.move.moveLeft();
@@ -98,16 +112,23 @@ int main()
 
 		if (movementTime > 0) {
 			player.move.move();
-			circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
 			for (auto& plate : platforms) {
+				sf::RectangleShape currentRect;
+				//for (auto rect : rectanges) {
+					if (rect.getPosition().x == plate.move.getXPosition() && rect.getPosition().y == plate.move.getYPosition()) {
+						currentRect = rect;
+						break;
+					}
+				//}
 				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
-					player.move.gravity();
-					circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
+					//if (!changedThisFrame) { player.move.gravity(); }
 				}
 				plate.move.gravity();
+				//currentRect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
 				rect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
-				std::cout << plate.move.getYPosition() << std::endl;
+				changedThisFrame = true;
 			}
+
 			movementTime--;
 		}
 		//updating vectors
@@ -136,7 +157,6 @@ int main()
 			}
 			if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
 				player.move.gravity();
-				circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
 			}
 		}
 		//if higher than 1200 remove
@@ -147,9 +167,15 @@ int main()
 
 		//drawing
 		window.clear();
-		window.draw(circle);
-		window.draw(rect);
-		window.draw(rect1);
+		window.draw(player);
+		/*for (auto& plate : rectanges) {
+			window.draw(plate);
+		}*/
+		//for (std::size_t i = 0; i < rectanges.size(); ++i) {
+		//	window.draw(rectanges.at(i));
+		//}
+		window.draw(enemy);
+		//window.draw(rect);
 		window.display();
 	}
 

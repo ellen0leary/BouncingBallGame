@@ -144,12 +144,14 @@
   <ItemGroup>
     <ClCompile Include="Ca2.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
