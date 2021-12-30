@@ -116,7 +116,7 @@ int main()
 						currentRect = rect;
 						break;
 					}*/
-				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20)) {
+				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) ) {
 					player.move.gravity();
 					player.updatePosition();
 				}
@@ -154,14 +154,13 @@ int main()
 			}
 			
 		}
-		if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20)) {
+		if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) && 
+			(!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), enemy.move.getXPosition(), enemy.move.getYPosition(), 20, 20))) {
 			player.move.gravity();
 			player.updatePosition();
 		}
 		//if higher than 1200 remove
 		// 
-
-
 
 
 		//drawing
@@ -206,7 +205,7 @@ int main()
 
 /*to do
 *  - fix plateform - fixed for now
-*  - add collider to enemy
+*  - add collider to enemy - done
 *  - multiple platofrms
 *  - multiple enemies
 *  - background clouds
