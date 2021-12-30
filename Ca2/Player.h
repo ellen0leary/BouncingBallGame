@@ -10,6 +10,7 @@ class Player : public sf::Drawable
 {
 public:
 	Player();
+	void updatePosition();
 	Movement move;
 	Collider collide;
 	

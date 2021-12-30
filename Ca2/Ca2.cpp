@@ -112,16 +112,16 @@ int main()
 
 		if (movementTime > 0) {
 			player.move.move();
+			player.updatePosition();
 			for (auto& plate : platforms) {
-				sf::RectangleShape currentRect;
-				//for (auto rect : rectanges) {
+				/*sf::RectangleShape currentRect;
 					if (rect.getPosition().x == plate.move.getXPosition() && rect.getPosition().y == plate.move.getYPosition()) {
 						currentRect = rect;
 						break;
-					}
-				//}
+					}*/
 				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
-					//if (!changedThisFrame) { player.move.gravity(); }
+					 player.move.gravity();
+					 player.updatePosition();
 				}
 				plate.move.gravity();
 				//currentRect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
@@ -157,6 +157,7 @@ int main()
 			}
 			if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
 				player.move.gravity();
+				player.updatePosition();
 			}
 		}
 		//if higher than 1200 remove
@@ -168,14 +169,7 @@ int main()
 		//drawing
 		window.clear();
 		window.draw(player);
-		/*for (auto& plate : rectanges) {
-			window.draw(plate);
-		}*/
-		//for (std::size_t i = 0; i < rectanges.size(); ++i) {
-		//	window.draw(rectanges.at(i));
-		//}
 		window.draw(enemy);
-		//window.draw(rect);
 		window.display();
 	}
 
