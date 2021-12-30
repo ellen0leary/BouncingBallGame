@@ -17,7 +17,6 @@ public:
 
 private:
 	virtual void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const;
-
 	sf::RectangleShape m_rect;
 };
 

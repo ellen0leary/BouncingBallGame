@@ -205,7 +205,7 @@ int main()
 
 
 /*to do
-*  - fix plateform - fixed for now
+*  - fix plateform
 *  - add collider to enemy
 *  - multiple platofrms
 *  - multiple enemies
