@@ -74,19 +74,23 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			//move left
 			player.move.moveLeft();
-			if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)) {
-				player.move.moveRight();
-				player.move.moveRight();
-				player.move.moveRight();
+			for (auto plate: platforms) {
+				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
+					player.move.moveRight();
+					player.move.moveRight();
+					player.move.moveRight();
+				}
 			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			//move right
 			player.move.moveRight();
-			if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)) {
-				player.move.moveLeft();
-				player.move.moveLeft();
-				player.move.moveLeft();
+			for (auto plate: platforms){
+				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
+					player.move.moveLeft();
+					player.move.moveLeft();
+					player.move.moveLeft();
+				}
 			}
 		}
 
@@ -94,15 +98,16 @@ int main()
 
 		if (movementTime > 0) {
 			player.move.move();
-
 			circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
-			if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)) {
-				player.move.gravity();
-				circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
+			for (auto& plate : platforms) {
+				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
+					player.move.gravity();
+					circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
+				}
+				plate.move.gravity();
+				rect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
+				std::cout << plate.move.getYPosition() << std::endl;
 			}
-			platform.move.gravity();
-			rect.setPosition(platform.move.getXPosition(), platform.move.getYPosition());
-			std::cout << platform.move.getYPosition() << std::endl;
 			movementTime--;
 		}
 		//updating vectors
@@ -122,21 +127,22 @@ int main()
 		//}
 
 		//loop
-		//for (auto plate : platforms) {
-		if (platform.move.getYPosition() >= 800) {
-			std::cout << "remove - " << platform.move.getYPosition() << std::endl;
+		for (auto plate : platforms) {
+			if (plate.move.getYPosition() >= 1500) {
+				std::cout << "remove - " << plate.move.getYPosition() << std::endl;
+			}
+			else {
+				//std::cout << (rect.getPosition().y) << std::endl;
+			}
+			if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plate.move.getXPosition(), plate.move.getYPosition(), 60, platformHeight)) {
+				player.move.gravity();
+				circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
+			}
 		}
-		else {
-			//std::cout << (rect.getPosition().y) << std::endl;
-		}
-		//}
 		//if higher than 1200 remove
 		// 
 
-		if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)) {
-			player.move.gravity();
-			circle.setPosition(player.move.getXPosition(), player.move.getYPosition());
-		}
+
 
 
 		//drawing
