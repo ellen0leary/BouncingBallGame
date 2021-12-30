@@ -23,7 +23,7 @@ float Movement::getXPosition() {
 
 void Movement::gravity()
 {
-	yPos += 0.05;
+	yPos += 22;
 }
 
 float Movement::getYPosition() {
