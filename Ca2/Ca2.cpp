@@ -124,6 +124,9 @@ int main()
 				plate.updatePositin();
 				changedThisFrame = true;
 			}
+			for (auto& ene : enemies) {
+				ene.move.gravity();
+			}
 
 			movementTime--;
 		}
