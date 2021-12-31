@@ -38,16 +38,17 @@ int main()
 	//values
 	bool spacePressed = false;
 	int movementTime = 0;
-	int difficulty = 5;
+	int difficulty = 10;
 	bool changedThisFrame = false;
 
+	srand(time(0));
 
-	while (platforms.size() <= 5) {
+	while (platforms.size() <= 10) {
 		//add new vector
 		Platform newPlat;
 		//randomise x value 
-		float randomX = rand() % screenHeight + 1;
-		float randomY = rand() % screenWidth + 30;
+		float randomY = rand() % (screenHeight) - 200;
+		float randomX = rand() % (screenWidth) + 30;
 		//std::cout << (randomX);
 		newPlat.move.setPos(randomX, randomY);
 		//randomise length
@@ -61,7 +62,13 @@ int main()
 		platforms.push_back(newPlat);
 	}
 
-	srand(time(0));
+	while (enemies.size() <= 3) {
+		float randomY = rand() % (screenHeight)+1;
+		float randomX = rand() % (screenWidth - 0) + 30;
+		//(float startX, float startY, bool ifControlled, float width, float height) 
+		Enemy newEnemy(randomX, randomY, false, 20, 20);
+		enemies.push_back(newEnemy);
+	}
 
 	while (window.isOpen())
 	{
@@ -130,6 +137,10 @@ int main()
 			for (auto& plate : platforms) {
 				plate.move.gravity();
 				plate.updatePositin();
+				if (plate.move.getYPosition() > 1500) {
+					//platforms.erase(plate);
+					//platforms.erase(std::remove(platforms.begin(), platforms.end(), plate));
+				}
 				changedThisFrame = true;
 			}
 			for (auto& ene : enemies) {
@@ -138,68 +149,32 @@ int main()
 
 			movementTime--;
 		}
+		//delete if over 1500
+		/*for (auto it = begin(platforms); it != end(platforms); ++it) {
+			if (it->move.getYPosition() >= 800) {
+				platforms.erase(std::remove(platforms.begin(), platforms.end(),it));
+			}
+		}*/
 		for (auto& ene : enemies) {
 			ene.updatePosition();
 		}
-		////updating vectors
-		////if (platforms.size() < difficulty) {
-		////	//add new vector
-		////	Platform newPlat;
-		////	//randomise x value 
-		////	float randomX = rand() % screenHeight + 1;
-		////	//std::cout << (randomX);
-		////	newPlat.move.setPos(randomX, -50);
-		////	//randomise length
-		////	float randomLength = rand() % 50 + 21;
-		////	sf::RectangleShape newRect(sf::Vector2f(randomLength, platformHeight));
-		////	//add to vectors
-		////	platforms.push_back(newPlat);
-		////	rectanges.push_back(newRect);
-		////}
-
-		////loop
-		//for (auto plate : platforms) {
-		//	if (plate.move.getYPosition() >= 1500) {
-		//		std::cout << "remove - " << plate.move.getYPosition() << std::endl;
-		//	}
-		//	
-		//}
-
-		//for (auto& ene : enemies) {
-		//	ene.updatePosition();
-		//}
-		////checking collisions
-		//bool ifHit = false;
-		//for (auto& ene : enemies) {
-		//	if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), ene.move.getXPosition(), ene.move.getYPosition(), 20, 20)) {
-		//		ifHit = true;
-		//	}
-		//}
-		//for (auto plat : platforms) {
-		//	if (!player.checkForCollision(plat.getPosition())
-		//		/*!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plat.move.getXPosition(), plat.move.getYPosition(), 60, 20)*/) {
-		//		/*player.move.gravity();
-		//		player.updatePosition();*/
-		//		//std::cout << std::to_string(player.checkForCollision(plat.getPosition())) << std::endl;
-		//		ifHit = true;
-		//	}
-		//}
-
-		//if (!ifHit) {
-
-		//	ifHit = false;
-		//} 
-		///*if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) && 
-		//	(!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), enemy.move.getXPosition(), enemy.move.getYPosition(), 20, 20))) {
-		//	player.move.gravity();
-		//	player.updatePosition();
-		//}*/
-		//player.move.gravity();
-		//player.updatePosition();
-		//if (!player.checkForCollision(platform.getPosition())) {
-		//	//std::cout << std::to_string(player.checkForCollision(platform.getPosition())) << std::endl;
-		//}
-	
+		
+		//updating vectors
+		if (platforms.size() < difficulty) {
+			//add new vector
+			Platform newPlat;
+			//randomise x value 
+			float randomX = rand() % screenHeight + 1;
+			//std::cout << (randomX);
+			newPlat.move.setPos(randomX, -50);
+			//randomise length
+			float randomLength = rand() % 50 + 21;
+			sf::RectangleShape newRect(sf::Vector2f(randomLength, platformHeight));
+			//add to vectors
+			platforms.push_back(newPlat);
+		}
+	 
+		
 
 		//drawing
 		window.clear(sf::Color::Color(129, 96, 247));
@@ -251,10 +226,11 @@ int main()
 *  - update movement on plateforms - done
 *  - update movement on enemies - done
 * 
-*  - multiple platofrms 
+*  - multiple platofrms  - kinda
 *  - multiple enemies
 *  
 *  - background clouds
 * 
 *  - scoring
-*/
+*  - first click
+*/ 

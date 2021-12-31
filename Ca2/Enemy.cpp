@@ -8,8 +8,9 @@ Enemy::Enemy(): m_rect(sf::Vector2f(20,20)), collide(20,20) , move(200,400,false
 }
 
 Enemy::Enemy(float startX, float startY, bool ifControlled, float width, float height) :
- move(startX,startY,ifControlled) , collide(20,20) {
-
+ move(startX,startY,ifControlled) , collide(20,20) , m_rect(sf::Vector2f(width, height)) {
+	m_rect.setFillColor(sf::Color::Color(131, 34, 50));
+	m_rect.setPosition(startX, startY);
 }
 
 Enemy::~Enemy() {
