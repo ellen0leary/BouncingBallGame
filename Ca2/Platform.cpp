@@ -12,6 +12,13 @@ Platform::~Platform()
 {
 }
 
+void Platform::updatePositin() {
+	float x = move.getXPosition();
+	float y = move.getYPosition();
+
+	m_rect.setPosition(sf::Vector2f(x, y));
+}
+
 void Platform::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
 	renderTarget.draw(m_rect);

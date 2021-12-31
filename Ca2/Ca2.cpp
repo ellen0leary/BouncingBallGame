@@ -121,7 +121,7 @@ int main()
 					player.updatePosition();
 				}
 				plate.move.gravity();
-				//currentRect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
+				plate.updatePositin();
 				//rect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
 				changedThisFrame = true;
 			}
@@ -149,9 +149,6 @@ int main()
 			if (plate.move.getYPosition() >= 1500) {
 				std::cout << "remove - " << plate.move.getYPosition() << std::endl;
 			}
-			else {
-				//std::cout << (rect.getPosition().y) << std::endl;
-			}
 			
 		}
 		if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) && 
@@ -159,15 +156,14 @@ int main()
 			player.move.gravity();
 			player.updatePosition();
 		}
-		//if higher than 1200 remove
-		// 
-
 
 		//drawing
 		window.clear(sf::Color::Color(129, 96, 247));
 		window.draw(player);
 		window.draw(enemy);
-		window.draw(platform);
+		for (auto plate : platforms) {
+			window.draw(plate);
+		}
 		window.display();
 	}
 
@@ -206,8 +202,11 @@ int main()
 /*to do
 *  - fix plateform - fixed for now
 *  - add collider to enemy - done
-*  - multiple platofrms
+*  - update movement on plateforms - done
+*  - update movement on enemies
+*  - multiple platofrms 
 *  - multiple enemies
+*  
 *  - background clouds
 * 
 *  - scoring

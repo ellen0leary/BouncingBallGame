@@ -9,6 +9,7 @@ public:
 	Platform();
 	virtual ~Platform();
 	Movement move;
+	void updatePositin();
 
 private:
 	virtual void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const;

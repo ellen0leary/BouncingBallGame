@@ -12,6 +12,7 @@ public:
 	Enemy(float startX, float startY, bool ifControlled, float width, float height);
 	//Enemy::Enemy(float startX, float startY, bool ifControlled, float width, float height);
 	virtual ~Enemy();
+	void updatePosition();
 	Movement move;
 	Collider collide;
 
