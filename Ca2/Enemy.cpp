@@ -18,6 +18,7 @@ Enemy::~Enemy() {
 
 void Enemy::updatePosition()
 {
+	move.move();
 	float x = move.getXPosition();
 	float y = move.getYPosition();
 

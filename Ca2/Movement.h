@@ -1,17 +1,20 @@
 #pragma once
+
+#include <iostream>
 class Movement
 {
 private:
 	float xPos;
 	float yPos;
 	bool playerControllered;
-
+	bool canMoveLeft;
 	void playerMovement();
 	void enemyMovement();
 
 public:
 	Movement();
 	Movement(float x, float y, bool ifContolled);
+
 	float getXPosition();
 	float getYPosition();
 
@@ -21,7 +24,7 @@ public:
 	void setControlled(bool ifControlled);
 	void gravity();
 
-	void moveLeft();
-	void moveRight();
+	bool moveLeft();
+	bool moveRight();
 };
 

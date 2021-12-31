@@ -7,10 +7,16 @@ Movement::Movement() {
 
 Movement::Movement(float x, float y, bool ifContolled) :
 	xPos(x), yPos(y), playerControllered(ifContolled) {
+	canMoveLeft = true;
 
 };
 void Movement::enemyMovement() {
-
+	if (!canMoveLeft) {
+		canMoveLeft = moveLeft();
+	}
+	else {
+		canMoveLeft = moveRight();
+	}
 };
 
 void Movement::playerMovement() {
@@ -31,13 +37,12 @@ float Movement::getYPosition() {
 }
 
 void Movement::move() {
-	playerMovement();
-	/*if (playerControllered) {
+	if (playerControllered) {
 		playerMovement();
 	}
 	else {
 		enemyMovement();
-	}*/
+	}
 }
 
 void Movement::setPos(float x, float y) {
@@ -46,19 +51,21 @@ void Movement::setPos(float x, float y) {
 }
 
 
-void Movement::moveLeft() {
+bool Movement::moveLeft() {
 	if (xPos <= 1) {
-		return;
+		return true;
 	}
 	else {
-		xPos -= 0.25;
+		xPos -=0.25;
+		return false;
 	}
 };
-void Movement::moveRight() {
+bool Movement::moveRight() {
 	if (xPos >= 360) {
-		return;
+		return false;
 	}
 	else {
 		xPos += 0.25;
+		return true;
 	}
 };

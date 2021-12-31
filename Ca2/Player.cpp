@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player():collide(40,40), m_circle(20.0f) {
+Player::Player():collide(40,40), m_circle(20.0f), move(160,800, true) {
 	m_circle.setFillColor(sf::Color::Color(206, 137, 100));
 	m_circle.setPosition(160, 800);
 };

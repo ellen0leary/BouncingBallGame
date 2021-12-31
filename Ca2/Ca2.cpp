@@ -24,24 +24,24 @@ int main()
 
 	////Platforms
 	std::vector<Platform> platforms;
-
-	/*Platform plateforms[25];
-	sf::RectangleShape rectangles[25];*/
-
-	
-
 	Platform platform;
 	platform.move.setPos(100, 600);
 	platforms.push_back(platform);
 
 
-	//enemy
+	//enemyies
+	std::vector<Enemy> enemies;
 	Enemy enemy;
+	enemies.push_back(enemy);
+
+
 	//values
 	bool spacePressed = false;
 	int movementTime = 0;
 	int difficulty = 5;
 	bool changedThisFrame = false;
+
+
 	while (platforms.size() <= 5) {
 		//add new vector
 		Platform newPlat;
@@ -122,7 +122,6 @@ int main()
 				}
 				plate.move.gravity();
 				plate.updatePositin();
-				//rect.setPosition(plate.move.getXPosition(), plate.move.getYPosition());
 				changedThisFrame = true;
 			}
 
@@ -151,6 +150,10 @@ int main()
 			}
 			
 		}
+
+		for (auto& ene : enemies) {
+			ene.updatePosition();
+		}
 		if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) && 
 			(!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), enemy.move.getXPosition(), enemy.move.getYPosition(), 20, 20))) {
 			player.move.gravity();
@@ -160,9 +163,11 @@ int main()
 		//drawing
 		window.clear(sf::Color::Color(129, 96, 247));
 		window.draw(player);
-		window.draw(enemy);
 		for (auto plate : platforms) {
 			window.draw(plate);
+		}
+		for (auto ene : enemies) {
+			window.draw(ene);
 		}
 		window.display();
 	}
@@ -203,6 +208,7 @@ int main()
 *  - fix plateform - fixed for now
 *  - add collider to enemy - done
 *  - update movement on plateforms - done
+* 
 *  - update movement on enemies
 *  - multiple platofrms 
 *  - multiple enemies
