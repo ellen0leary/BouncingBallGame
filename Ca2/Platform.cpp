@@ -19,7 +19,17 @@ void Platform::updatePositin() {
 	m_rect.setPosition(sf::Vector2f(x, y));
 }
 
+sf::FloatRect Platform::getPosition()
+{
+	return m_rect.getGlobalBounds();
+}
+
 void Platform::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const
 {
 	renderTarget.draw(m_rect);
 }
+
+
+//bool Platfom::checkForCollision(sf::FloatRect other) {
+//	return collide.checkCollision(m_circle.getGlobalBounds(), other);
+//}

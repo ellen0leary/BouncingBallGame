@@ -25,6 +25,10 @@ bool Collider::checkCollision(float currentX, float currentY, float otherX, floa
 	return false;
 
 }
+bool Collider::checkCollision(sf::FloatRect shape, sf::FloatRect other)
+{
+	return shape.intersects(other);
+}
 bool Collider::setActive()
 {
 	if(m_ifActive)

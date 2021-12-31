@@ -10,6 +10,8 @@ public:
 	virtual ~Platform();
 	Movement move;
 	void updatePositin();
+	sf::FloatRect getPosition();
+
 
 private:
 	virtual void draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const;

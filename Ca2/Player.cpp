@@ -17,3 +17,7 @@ void Player::updatePosition() {
 
 	m_circle.setPosition(sf::Vector2f(x, y));
 }
+
+bool Player::checkForCollision(sf::FloatRect other) {
+	return collide.checkCollision(m_circle.getGlobalBounds(), other);
+}

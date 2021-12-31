@@ -84,7 +84,8 @@ int main()
 			//move left
 			player.move.moveLeft();
 			for (auto plate : platforms) {
-				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)) {
+				if (player.checkForCollision(plate.getPosition())
+					/*player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)*/) {
 					player.move.moveRight();
 					player.move.moveRight();
 					player.move.moveRight();
@@ -96,7 +97,8 @@ int main()
 			//move right
 			player.move.moveRight();
 			for (auto plate : platforms) {
-				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)) {
+				if (player.checkForCollision(plate.getPosition())
+					/*player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)*/) {
 					player.move.moveLeft();
 					player.move.moveLeft();
 					player.move.moveLeft();
@@ -106,20 +108,21 @@ int main()
 		}
 
 		//	//updating scene
+		bool ifHit = false;
+		for (auto& plat : platforms) {
+			if (player.checkForCollision(plat.getPosition())) {
+				ifHit = true;
+			}
+		}
 
+		if (!ifHit) {
+			player.move.gravity();
+			player.updatePosition();
+		}
 		if (movementTime > 0) {
 			player.move.move();
 			player.updatePosition();
 			for (auto& plate : platforms) {
-				/*sf::RectangleShape currentRect;
-					if (rect.getPosition().x == plate.move.getXPosition() && rect.getPosition().y == plate.move.getYPosition()) {
-						currentRect = rect;
-						break;
-					}*/
-				if (player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) ) {
-					player.move.gravity();
-					player.updatePosition();
-				}
 				plate.move.gravity();
 				plate.updatePositin();
 				changedThisFrame = true;
@@ -130,38 +133,68 @@ int main()
 
 			movementTime--;
 		}
-		//updating vectors
-		//if (platforms.size() < difficulty) {
-		//	//add new vector
-		//	Platform newPlat;
-		//	//randomise x value 
-		//	float randomX = rand() % screenHeight + 1;
-		//	//std::cout << (randomX);
-		//	newPlat.move.setPos(randomX, -50);
-		//	//randomise length
-		//	float randomLength = rand() % 50 + 21;
-		//	sf::RectangleShape newRect(sf::Vector2f(randomLength, platformHeight));
-		//	//add to vectors
-		//	platforms.push_back(newPlat);
-		//	rectanges.push_back(newRect);
-		//}
-
-		//loop
-		for (auto plate : platforms) {
-			if (plate.move.getYPosition() >= 1500) {
-				std::cout << "remove - " << plate.move.getYPosition() << std::endl;
-			}
-			
-		}
-
 		for (auto& ene : enemies) {
 			ene.updatePosition();
 		}
-		if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) && 
-			(!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), enemy.move.getXPosition(), enemy.move.getYPosition(), 20, 20))) {
-			player.move.gravity();
-			player.updatePosition();
-		}
+		////updating vectors
+		////if (platforms.size() < difficulty) {
+		////	//add new vector
+		////	Platform newPlat;
+		////	//randomise x value 
+		////	float randomX = rand() % screenHeight + 1;
+		////	//std::cout << (randomX);
+		////	newPlat.move.setPos(randomX, -50);
+		////	//randomise length
+		////	float randomLength = rand() % 50 + 21;
+		////	sf::RectangleShape newRect(sf::Vector2f(randomLength, platformHeight));
+		////	//add to vectors
+		////	platforms.push_back(newPlat);
+		////	rectanges.push_back(newRect);
+		////}
+
+		////loop
+		//for (auto plate : platforms) {
+		//	if (plate.move.getYPosition() >= 1500) {
+		//		std::cout << "remove - " << plate.move.getYPosition() << std::endl;
+		//	}
+		//	
+		//}
+
+		//for (auto& ene : enemies) {
+		//	ene.updatePosition();
+		//}
+		////checking collisions
+		//bool ifHit = false;
+		//for (auto& ene : enemies) {
+		//	if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), ene.move.getXPosition(), ene.move.getYPosition(), 20, 20)) {
+		//		ifHit = true;
+		//	}
+		//}
+		//for (auto plat : platforms) {
+		//	if (!player.checkForCollision(plat.getPosition())
+		//		/*!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), plat.move.getXPosition(), plat.move.getYPosition(), 60, 20)*/) {
+		//		/*player.move.gravity();
+		//		player.updatePosition();*/
+		//		//std::cout << std::to_string(player.checkForCollision(plat.getPosition())) << std::endl;
+		//		ifHit = true;
+		//	}
+		//}
+
+		//if (!ifHit) {
+
+		//	ifHit = false;
+		//} 
+		///*if (!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, 20) && 
+		//	(!player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), enemy.move.getXPosition(), enemy.move.getYPosition(), 20, 20))) {
+		//	player.move.gravity();
+		//	player.updatePosition();
+		//}*/
+		//player.move.gravity();
+		//player.updatePosition();
+		//if (!player.checkForCollision(platform.getPosition())) {
+		//	//std::cout << std::to_string(player.checkForCollision(platform.getPosition())) << std::endl;
+		//}
+	
 
 		//drawing
 		window.clear(sf::Color::Color(129, 96, 247));
@@ -211,8 +244,8 @@ int main()
 *  - fix plateform - fixed for now
 *  - add collider to enemy - done
 *  - update movement on plateforms - done
+*  - update movement on enemies - done
 * 
-*  - update movement on enemies
 *  - multiple platofrms 
 *  - multiple enemies
 *  

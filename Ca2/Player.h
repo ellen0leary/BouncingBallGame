@@ -11,6 +11,7 @@ class Player : public sf::Drawable
 public:
 	Player();
 	void updatePosition();
+	bool checkForCollision(sf::FloatRect other);
 	Movement move;
 	Collider collide;
 	
