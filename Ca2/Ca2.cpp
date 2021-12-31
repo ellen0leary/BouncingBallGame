@@ -114,6 +114,11 @@ int main()
 				ifHit = true;
 			}
 		}
+		for (auto& enem : enemies) {
+			if (player.checkForCollision(enem.getPosition())) {
+				ifHit = true;
+			}
+		}
 
 		if (!ifHit) {
 			player.move.gravity();

@@ -13,6 +13,7 @@ public:
 	//Enemy::Enemy(float startX, float startY, bool ifControlled, float width, float height);
 	virtual ~Enemy();
 	void updatePosition();
+	sf::FloatRect getPosition();
 	Movement move;
 	Collider collide;
 

@@ -28,3 +28,8 @@ void Enemy::updatePosition()
 void Enemy::draw(sf::RenderTarget& renderTarget, sf::RenderStates renderStates) const {
 	renderTarget.draw(m_rect);
 }
+
+sf::FloatRect Enemy::getPosition()
+{
+	return m_rect.getGlobalBounds();
+}

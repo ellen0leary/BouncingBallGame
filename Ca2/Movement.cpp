@@ -56,7 +56,7 @@ bool Movement::moveLeft() {
 		return true;
 	}
 	else {
-		xPos -=0.25;
+		xPos -=0.15;
 		return false;
 	}
 };
@@ -65,7 +65,7 @@ bool Movement::moveRight() {
 		return false;
 	}
 	else {
-		xPos += 0.25;
+		xPos += 0.15;
 		return true;
 	}
 };
