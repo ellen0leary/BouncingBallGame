@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <stdlib.h> //for random
 #include <time.h> // for random seed
 
@@ -46,13 +47,39 @@ int main()
 	//scoreFont
 	sf::Font scoreFont;
 	if (!scoreFont.loadFromFile("fonts/Shizuru.ttf")) {
-		return 0;
+		return -1;
 	}
 	sf::Text scoreText;
 	scoreText.setFont(scoreFont);
 	scoreText.setString("Score- "+std::to_string(score));
 	scoreText.setCharacterSize(30);
 	scoreText.setFillColor(sf::Color::White);
+
+
+	//sound
+	//	background
+	sf::SoundBuffer loopBuffer;
+	if (!loopBuffer.loadFromFile("sounds/loop.wav")) {
+		return -1;
+	}
+	sf::Sound loopSound;
+	loopSound.setBuffer(loopBuffer);
+	loopSound.play();
+	loopSound.setLoop(true);
+	//	jumping
+	sf::SoundBuffer jumpBuffer;
+	if (!jumpBuffer.loadFromFile("sounds/jumping.wav")) {
+		return -1;
+	}
+	sf::Sound jumpSound;
+	jumpSound.setBuffer(jumpBuffer);
+	//	death
+	sf::SoundBuffer deathBuffer;
+	if (!deathBuffer.loadFromFile("sounds/death.wav")) {
+		return -1;
+	}
+	sf::Sound deathSound;
+	deathSound.setBuffer(deathBuffer);
 
 	srand(time(0));
 
@@ -100,6 +127,7 @@ int main()
 					std::cout << "space Pressed" << std::endl;
 					movementTime = 400;
 					score += 10;
+					jumpSound.play();
 				}
 			}
 		}
@@ -140,6 +168,7 @@ int main()
 		for (auto& enem : enemies) {
 			if (player.checkForCollision(enem.getPosition())) {
 				ifHit = true;
+				deathSound.play();
 			}
 		}
 
@@ -247,7 +276,7 @@ int main()
 
 /* to do 
 * - keep spawning in items~1 hour - done
-* - scoring ~ 1 hour
+* - scoring ~ 1 hour - done
 * - sounds ~ 1 hour
 * - text - .5 hour
 * - menu - 1 hour
