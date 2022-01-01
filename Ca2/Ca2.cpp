@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <SFML/Graphics.hpp>
-//#include <stdio.h>
 #include <stdlib.h> //for random
 #include <time.h> // for random seed
 
@@ -13,6 +12,7 @@
 
 int main()
 {
+	int currentY = 600;
 	const int screenWidth = 400;
 	const int screenHeight = 900;
 	const float platformHeight = 20;
@@ -43,14 +43,15 @@ int main()
 
 	srand(time(0));
 
-	while (platforms.size() <= 10) {
+	while (platforms.size() <= 30) {
 		//add new vector
 		Platform newPlat;
 		//randomise x value 
-		float randomY = rand() % (screenHeight) - 200;
+		float randomY = rand() % 20+50;
+		currentY -= randomY;
 		float randomX = rand() % (screenWidth) + 30;
 		//std::cout << (randomX);
-		newPlat.move.setPos(randomX, randomY);
+		newPlat.move.setPos(randomX, currentY);
 		//randomise length
 		float randomLength = rand() % 50 + 21;
 
@@ -138,8 +139,11 @@ int main()
 				plate.move.gravity();
 				plate.updatePositin();
 				if (plate.move.getYPosition() > 1500) {
-					//platforms.erase(plate);
-					//platforms.erase(std::remove(platforms.begin(), platforms.end(), plate));
+					float lastY = platforms.back().move.getYPosition();
+					float randomY = rand() % 20 + 50;
+					float randomX = rand() % (screenWidth) +1;
+					plate.move.setPos(randomX, 0);
+					plate.updatePositin();
 				}
 				changedThisFrame = true;
 			}
@@ -205,32 +209,26 @@ int main()
 
 
 /*to do
-*	- add multiple plateforms ~1.5 hours
-*	- add emeies - 1 hour
-*	- multple enemies ~1.5 hours
-*	- backgound ~1 hour
-*		- blue background
-*		- clouds
-*  - scoring
-*
-*
-*  - high scores
-*  - player singleton
-
-*/
-
-
-/*to do
 *  - fix plateform - fixed for now
 *  - add collider to enemy - done
 *  - update movement on plateforms - done
 *  - update movement on enemies - done
 * 
 *  - multiple platofrms  - kinda
-*  - multiple enemies
+*  - multiple enemies - kinda
 *  
 *  - background clouds
+* - fix spawning
 * 
 *  - scoring
 *  - first click
 */ 
+
+/* to do 
+* - keep spawning in items~1 hour
+* - scoring ~ 1 hour
+* - sounds ~ 1 hour
+* - text - .5 hour
+* - menu - 1 hour
+* - 
+*/
