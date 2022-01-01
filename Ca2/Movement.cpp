@@ -27,9 +27,9 @@ float Movement::getXPosition() {
 	return xPos;
 }
 
-void Movement::gravity()
+void Movement::gravity(float value)
 {
-	yPos += 0.6;
+	yPos += value;
 }
 
 float Movement::getYPosition() {

@@ -22,7 +22,7 @@ public:
 	void setPos(float x, float y);
 
 	void setControlled(bool ifControlled);
-	void gravity();
+	void gravity(float value= 0.6);
 
 	bool moveLeft();
 	bool moveRight();
