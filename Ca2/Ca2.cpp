@@ -41,6 +41,18 @@ int main()
 	int movementTime = 0;
 	int difficulty = 10;
 	bool changedThisFrame = false;
+	int score = 0;
+
+	//scoreFont
+	sf::Font scoreFont;
+	if (!scoreFont.loadFromFile("fonts/Shizuru.ttf")) {
+		return 0;
+	}
+	sf::Text scoreText;
+	scoreText.setFont(scoreFont);
+	scoreText.setString("Score- "+std::to_string(score));
+	scoreText.setCharacterSize(30);
+	scoreText.setFillColor(sf::Color::White);
 
 	srand(time(0));
 
@@ -64,7 +76,7 @@ int main()
 		platforms.push_back(newPlat);
 	}
 
-	while (enemies.size() <= 3) {
+	while (enemies.size() <= 4) {
 		float randomY = rand() % 50 +130;
 		enemyY -= randomY;
 		float randomX = rand() % (screenWidth - 0) + 30;
@@ -86,7 +98,8 @@ int main()
 				std::cout << "Key Pressed" << std::endl;
 				if (event.key.code == sf::Keyboard::Space) {
 					std::cout << "space Pressed" << std::endl;
-					movementTime = 300;
+					movementTime = 400;
+					score += 10;
 				}
 			}
 		}
@@ -163,7 +176,7 @@ int main()
 		}*/
 		for (auto& ene : enemies) {
 			ene.updatePosition();
-			if (ene.move.getYPosition() > 600) {
+			if (ene.move.getYPosition() > screenHeight) {
 				float lastY = enemies.back().move.getYPosition();
 				float randomY = rand() % 70 + 130;
 				ene.move.setPos(0, (-(randomY)));
@@ -186,7 +199,7 @@ int main()
 		}
 	 
 		
-
+		scoreText.setString("Score- " + std::to_string(score));
 		//drawing
 		window.clear(sf::Color::Color(129, 96, 247));
 		window.draw(player);
@@ -196,6 +209,7 @@ int main()
 		for (auto ene : enemies) {
 			window.draw(ene);
 		}
+		window.draw(scoreText);
 		window.display();
 	}
 
@@ -232,7 +246,7 @@ int main()
 */ 
 
 /* to do 
-* - keep spawning in items~1 hour
+* - keep spawning in items~1 hour - done
 * - scoring ~ 1 hour
 * - sounds ~ 1 hour
 * - text - .5 hour
