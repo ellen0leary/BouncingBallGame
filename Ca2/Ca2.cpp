@@ -13,6 +13,7 @@
 int main()
 {
 	int currentY = 600;
+	int enemyY = 400;
 	const int screenWidth = 400;
 	const int screenHeight = 900;
 	const float platformHeight = 20;
@@ -64,10 +65,11 @@ int main()
 	}
 
 	while (enemies.size() <= 3) {
-		float randomY = rand() % (screenHeight)+1;
+		float randomY = rand() % 50 +130;
+		enemyY -= randomY;
 		float randomX = rand() % (screenWidth - 0) + 30;
 		//(float startX, float startY, bool ifControlled, float width, float height) 
-		Enemy newEnemy(randomX, randomY, false, 20, 20);
+		Enemy newEnemy(randomX, enemyY, false, 20, 20);
 		enemies.push_back(newEnemy);
 	}
 
@@ -84,7 +86,7 @@ int main()
 				std::cout << "Key Pressed" << std::endl;
 				if (event.key.code == sf::Keyboard::Space) {
 					std::cout << "space Pressed" << std::endl;
-					movementTime = 200;
+					movementTime = 300;
 				}
 			}
 		}
@@ -161,6 +163,11 @@ int main()
 		}*/
 		for (auto& ene : enemies) {
 			ene.updatePosition();
+			if (ene.move.getYPosition() > 600) {
+				float lastY = enemies.back().move.getYPosition();
+				float randomY = rand() % 70 + 130;
+				ene.move.setPos(0, (-(randomY)));
+			}
 		}
 		
 		//updating vectors
