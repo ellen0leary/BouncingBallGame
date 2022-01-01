@@ -106,7 +106,9 @@ int main()
 
 	while (platforms.size() <= 30) {
 		//add new vector
-		Platform newPlat;
+		int random = rand() % 2;
+		if (random) random = rand() % 2; //25%
+		Platform newPlat(random);
 		//randomise x value 
 		float randomY = rand() % 20 + 50;
 		currentY -= randomY;
@@ -157,6 +159,7 @@ int main()
 					}
 					else {
 						state = State::MENU;
+						player.reset();
 					}
 				}
 			}
@@ -169,9 +172,9 @@ int main()
 				for (auto plate : platforms) {
 					if (player.checkForCollision(plate.getPosition())
 						/*player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)*/) {
+						/*player.move.moveRight();
 						player.move.moveRight();
-						player.move.moveRight();
-						player.move.moveRight();
+						player.move.moveRight();*/
 					}
 				}
 				player.updatePosition();
@@ -182,9 +185,9 @@ int main()
 				for (auto plate : platforms) {
 					if (player.checkForCollision(plate.getPosition())
 						/*player.collide.checkCollision(player.move.getXPosition(), player.move.getYPosition(), platform.move.getXPosition(), platform.move.getYPosition(), 60, platformHeight)*/) {
+						/*player.move.moveLeft();
 						player.move.moveLeft();
-						player.move.moveLeft();
-						player.move.moveLeft();
+						player.move.moveLeft();*/
 					}
 				}
 				player.updatePosition();
@@ -195,6 +198,7 @@ int main()
 		if (state == State::PLAYING) {
 			bool ifHit = false;
 			for (auto& plat : platforms) {
+				plat.moving();
 				if (player.checkForCollision(plat.getPosition())) {
 					ifHit = true;
 				}
@@ -206,7 +210,7 @@ int main()
 					state = State::GAMMEOVER;
 				}
 			}
-
+			
 			if (!ifHit) {
 				player.move.gravity();
 				player.updatePosition();
@@ -218,7 +222,7 @@ int main()
 					plate.move.gravity();
 					plate.updatePositin();
 					if (plate.move.getYPosition() > 1500) {
-						float lastY = platforms.back().move.getYPosition();
+						float lastY = -400;
 						float randomY = rand() % 20 + 50;
 						float randomX = rand() % (screenWidth)+1;
 						plate.move.setPos(randomX, 0);
@@ -292,5 +296,7 @@ int main()
 * - scoring ~ 1 hour - done
 * - sounds ~ 1 hour - done
 * - text - .5 hour - done
-* - menu - 1 hour
+* - menu - 1 hour - done
+*  - plateform moves
+*  - coins
 */

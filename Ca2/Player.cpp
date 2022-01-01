@@ -21,3 +21,9 @@ void Player::updatePosition() {
 bool Player::checkForCollision(sf::FloatRect other) {
 	return collide.checkCollision(m_circle.getGlobalBounds(), other);
 }
+
+void Player::reset() {
+	//collide(40,40), m_circle(20.0f), move(160,800, true
+	move.setPos(160, 800);
+	m_circle.setPosition(160, 800);
+}

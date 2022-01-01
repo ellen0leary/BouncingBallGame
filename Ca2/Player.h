@@ -12,6 +12,7 @@ public:
 	Player();
 	void updatePosition();
 	bool checkForCollision(sf::FloatRect other);
+	void reset();
 	Movement move;
 	Collider collide;
 	

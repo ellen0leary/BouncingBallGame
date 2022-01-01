@@ -29,7 +29,12 @@ float Movement::getXPosition() {
 
 void Movement::gravity(float value)
 {
-	yPos += value;
+	if (yPos >= 860 && playerControllered) {
+		return;
+	}
+	else {
+		yPos += value;
+	}
 }
 
 float Movement::getYPosition() {
